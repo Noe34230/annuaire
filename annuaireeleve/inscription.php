@@ -20,7 +20,7 @@
 <label for="prenom"> prenom :</label>
 <input type="text" name="prenom" size="50" /><br /><br /><br/>
 <label for="dateNaissance"> Date de naissance :</label>
-<input type="Date" name="dateNaissance" size="50" /><br /><br /><br/>
+<input type="date" name="dateNaissance" /><br /><br /><br/>
 <label for="genre"> Homme </label>
 <input type="Radio" name="genre" value="homme" />
 <label for="genre"> Femme </label>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2021 at 03:54 PM
+-- Generation Time: Mar 16, 2021 at 11:09 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -89,21 +89,22 @@ CREATE TABLE `eleve` (
   `genre` varchar(50) DEFAULT NULL,
   `numRue` int(11) DEFAULT NULL,
   `nomRue` varchar(50) DEFAULT NULL,
-  `valide` tinyint(1) DEFAULT NULL,
+  `valide` tinyint(1) DEFAULT 0,
   `codePostal` int(11) DEFAULT NULL,
   `ville` varchar(50) DEFAULT NULL,
   `nom` varchar(50) DEFAULT NULL,
   `prenom` varchar(50) DEFAULT NULL,
-  `motDePasse` varchar(50) DEFAULT NULL
+  `motDePasse` varchar(50) DEFAULT NULL,
+  `dateNaissance` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `eleve`
 --
 
-INSERT INTO `eleve` (`login`, `promotion`, `mail`, `telephone`, `genre`, `numRue`, `nomRue`, `valide`, `codePostal`, `ville`, `nom`, `prenom`, `motDePasse`) VALUES
-('lmessi', '2015', 'lmessi@ensc.fr', 607060706, 'Femme', 2, 'Rue de l\'arbre', 1, 74000, 'Annecy', 'Messi', 'Lionel', 'leo74'),
-('zzidane', '2006', 'zzidane@ensc.fr', 606060606, 'Homme', 1, 'Rue de la paix', 1, 13000, 'Marseille', 'Zidane', 'Zinedine', 'zizou13');
+INSERT INTO `eleve` (`login`, `promotion`, `mail`, `telephone`, `genre`, `numRue`, `nomRue`, `valide`, `codePostal`, `ville`, `nom`, `prenom`, `motDePasse`, `dateNaissance`) VALUES
+('lmessi', '2015', 'lmessi@ensc.fr', 607060706, 'Femme', 2, 'Rue de l\'arbre', 1, 74000, 'Annecy', 'Messi', 'Lionel', 'leo74', '0000-00-00'),
+('zzidane', '2006', 'zzidane@ensc.fr', 606060606, 'Homme', 1, 'Rue de la paix', 1, 13000, 'Marseille', 'Zidane', 'Zinedine', 'zizou13', '0000-00-00');
 
 -- --------------------------------------------------------
 
