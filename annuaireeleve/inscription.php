@@ -10,6 +10,17 @@
 <body>
 
 <h1>Inscription</h1>
+<?php
+if(isset($_SESSION['errMdp'])){
+    echo "Les mots de passe ne correspondent pas </br>";
+}
+
+if(isset($_SESSION['champVide'])){
+    echo "Veuillez remplir tout les champs";
+}
+
+
+?>
 
 
 <fieldset>
