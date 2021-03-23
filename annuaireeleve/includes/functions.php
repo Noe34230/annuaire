@@ -54,4 +54,25 @@ function ajouterEleve($nom,$prenom,$genre,$mail,$promotion,$telephone,$numRue,$n
 }
 
 
+function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,$lieu,$salaire){
+    $exp = getDb()->prepare("INSERT INTO eleve
+    (type,datedeb,libelle,dateFin,description,organisation,lieu,salaire,login)
+    VALUES (:type,:datedeb,:libelle,:dateFin,:description,:organisation,:lieu,:salaire,:login)");
+
+    $exp->bindValue('type',$type,PDO::PARAM_STR);
+    $exp->bindValue('datedeb',$dateDeb,PDO::PARAM_STR);
+    $exp->bindValue('libelle',$libelle,PDO::PARAM_STR);
+    $exp->bindValue('datefin',$dateFin,PDO::PARAM_STR);
+    $exp->bindValue('description',$description,PDO::PARAM_STR);
+    $exp->bindValue('organisation',$organisation,PDO::PARAM_STR);
+    $exp->bindValue('lieu',$lieu,PDO::PARAM_STR);
+    $exp->bindValue('salaire',$salaire,PDO::PARAM_STR);
+    $exp->bindValue('login',$_SESSION['login'],PDO::PARAM_STR);
+
+    $exp->execute();
+  
+   
+}
+
+
 ?>
