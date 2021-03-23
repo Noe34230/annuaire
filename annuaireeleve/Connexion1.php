@@ -7,6 +7,8 @@
         <br/>
         <?php 
             session_start();
+            $_SESSION['user']=$_POST['user'];
+
             
             if (isset($_SESSION['message']))
             {print "Utilisateur ou mdp non reconnu, veuillez réessayez"; }
