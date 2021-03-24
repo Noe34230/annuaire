@@ -18,5 +18,7 @@
 
         </form>
 
+        <a href="inscription.php">Créer un compte</a>
+
     </body>
 </html>

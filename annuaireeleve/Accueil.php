@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<?php require_once "includes/head.php"; ?>
+<body>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Accueil</title>
+<?php require_once "includes/header.php"; ?>
 
-</head>
 <?php 
   session_start();
   require("includes/functions.php");
-  afficherNomsPrenoms($_SESSION['login']); //mettre dans le header ?
+  afficherNomsPrenoms($_SESSION['login']); 
   afficherExperience($_SESSION['login']);
   ?>
+
+<?php require_once "includes/scripts.php"; ?>
+</body>
+</html>
