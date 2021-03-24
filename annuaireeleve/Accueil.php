@@ -11,6 +11,6 @@
 <?php 
   session_start();
   require("includes/functions.php");
-  afficherInfos($_SESSION['login']);
+  afficherNomsPrenoms($_SESSION['login']); //mettre dans le header ?
   afficherExperience($_SESSION['login']);
   ?>

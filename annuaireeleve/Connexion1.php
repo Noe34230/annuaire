@@ -7,6 +7,8 @@
         <br/>
         <?php 
             session_start();
+            $_SESSION['user']=$_POST['user'];
+
             
             if (isset($_SESSION['message']))
             {print "Utilisateur ou mdp non reconnu, veuillez réessayez"; }
@@ -17,7 +19,6 @@
             <label for ="mdp"> mot de passe :</label>
             <input type ="password" name ="mdp" /> <br/><br/>
             <input type="submit" name="envoi" id="envoi" value ="Envoyer"/>
-
         </form>
     </body>
 </html>
