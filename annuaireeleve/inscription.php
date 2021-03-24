@@ -66,7 +66,8 @@ if(isset($_SESSION['champVide'])){
 <input type="password" name="mdp" size="50" /><br /><br /><br/>
 <label for="Conf"> confirmer le mot de passe :</label>
 <input type="password" name="mdpConf" size="50" /><br /><br /><br/>
-<input type="submit" name="valider" value="valider"/>
+<input type="submit" name="valider" value="Valider"/>
+<input type="reset" name="annuler" value="Annuler"/>
 </fieldset>
 </form>
 
