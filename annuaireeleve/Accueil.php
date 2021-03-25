@@ -9,8 +9,9 @@
 <?php 
   session_start();
   require("includes/functions.php");
-  afficherNomsPrenoms($_SESSION['login']); 
-  afficherExperience($_SESSION['login']);
+  afficherNomsPrenoms($_SESSION['login']);
+  $_SESSION['idExperience'] ="";
+  afficherExperiencePerso($_SESSION['login']);
   ?>
 
 <?php require_once "includes/scripts.php"; ?>
