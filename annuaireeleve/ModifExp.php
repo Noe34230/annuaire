@@ -14,8 +14,13 @@
   
 ?>
     <form method="POST" action="Modifexp2.php">
-        <label for="type"> Type d'expérience :</label>
-        <input type ="text" name ="type"/> <br/><br/>
+        <select name="type" size="3" multiple>
+        <option value="stage">Stage</option>
+        <option value="emploi">emploi</option>
+        <option value="alternance">Alternance</option>
+        <option value="Benevole">benevole</option>
+        <option value="Autre">Autre</option> 
+        </select><br/><br/>
         <label for ="libelle"> Libelle :</label>
         <input type ="texte" name ="Libelle" /> <br/><br/>
         <label for="dateFin"> Date à laquelle l'expérience s'est terminé :</label>

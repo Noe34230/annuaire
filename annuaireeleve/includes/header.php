@@ -5,7 +5,7 @@
 <a class="nav-link" href="Accueil.php">Accueil</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="Recherche.php">Recherhcer une experience</a>
+<a class="nav-link" href="Recherche.php">Rechercher une experience</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" href="infosPerso.php">Mes informations personnelles</a>

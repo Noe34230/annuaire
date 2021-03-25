@@ -80,8 +80,8 @@ function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,
 }
 
 function afficherNomsPrenoms($id){
-    require("connect.php");
-    $requete = $BDD->prepare("SELECT * FROM eleve
+    //require("connect.php");
+    $requete = getDb()->prepare("SELECT * FROM eleve
 WHERE login= ? ");
 $requete->execute( array($id) ) ;
     while ($Tuple = $requete ->fetch()){
@@ -89,10 +89,27 @@ $requete->execute( array($id) ) ;
         echo "$Tuple[nom]";
     }
 }
+function afficherDomaineComp(){
+    //require("connect.php");
+    $requete = getDb()->prepare("SELECT nomDomaine FROM domainecompetence");
+    $requete->execute() ;
+    while ($Tuple = $requete ->fetch()){
+        echo "<option value=$Tuple[nomDomaine]>$Tuple[nomDomaine]</option>";
+    }
+}
+
+function afficherSecteurAct(){
+    //require("connect.php");
+    $requete = getDb()->prepare("SELECT nomSecteur FROM secteuractivite");
+    $requete->execute() ;
+    while ($Tuple = $requete ->fetch()){
+        echo "<option value=$Tuple[nomSecteur]>$Tuple[nomSecteur]</option>";
+    }
+}
+
 
 function afficherExperience($id){
-    require("connect.php");
-    $requete = $BDD->prepare("SELECT * FROM experience
+    $requete = getDb()->prepare("SELECT * FROM experience
 WHERE login= ? ");
 $requete->execute( array($id) ) ;
     while ($Tuple = $requete ->fetch()){
@@ -104,6 +121,21 @@ $requete->execute( array($id) ) ;
             </form>";
     }
 }
+
+function afficherExperienceRecherchees($type,$organisation,$lieu,$idSecteur,$id){
+    $requete = getDb()->prepare("SELECT * FROM experience EXP, associer ASSO,attribuer ATT,eleve E, domainecompetence, secteuractivite
+    WHERE E.login= :login AND EXP.type= :type AND EXP.login= :login AND EXP.organisation= :organisation AND EXP.lieu= :lieu AND ASSO.IdSecteur= :nomSecteur ANDAND ASSO.idExperience=EXP.idExperience AND ATT.idExperience=EXP.idExperience AND ATT.IdDomaine= :nomDomaine");
+    $requete->execute() ;
+    while ($Tuple = $requete ->fetch()){
+        //echo "<p>$Tuple[type]</p>";
+        echo "<p>$Tuple[libelle]</p>";
+        echo "<p>$Tuple[lieu]</p>";
+        echo "<form method='POST' action='ConsultExp.php'>
+            <input type='submit' name='Consulter' id='$Tuple[idExperience]' value ='Consulter cette experience'/>
+            </form>";
+    }
+}
+
 function afficherInfosPerso($id){
     require("connect.php");
     $requete = $BDD->prepare("SELECT * FROM eleve
@@ -239,9 +271,9 @@ function modifExp ($id,$libelle,$description,$organisation,$salaire,$Lieu,$type)
     }    
     if ($promotion!=0)
     {
-        $requete = $BDD->prepare("UPDATE experience SET 'date' = :'date'
+        $requete = $BDD->prepare("UPDATE experience SET 'promotion' = :'promotion'
         WHERE login= :login ");
-        $requete ->bindValue('promotion',$promotion, PDO::PARAM_DATE);
+        $requete ->bindValue('promotion',$promotion, PDO::PARAM_INT);
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    

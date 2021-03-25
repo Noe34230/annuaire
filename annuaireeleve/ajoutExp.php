@@ -22,8 +22,13 @@ if(isset($_SESSION['champVideExp'])){
 <fieldset>
     <legend>Experience</legend>
 <form method="POST" action="ajouterExp.php">
-<label for="type"> Type :</label>
-<input type="text" name="type" size="50" /><br /><br /><br/>
+<select name="type" size="3" multiple>
+<option value="stage">Stage</option>
+<option value="emploi">emploi</option>
+<option value="alternance">Alternance</option>
+<option value="Benevole">benevole</option>
+<option value="Autre">Autre</option>
+</select><br /><br /><br/>
 <label for="libelle"> Libelle :</label>
 <input type="text" name="libelle" size="50" /><br /><br /><br/>
 <label for="dateDeb"> Date de début :</label>

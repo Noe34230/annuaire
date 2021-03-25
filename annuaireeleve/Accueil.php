@@ -9,8 +9,13 @@
 <?php 
   session_start();
   require("includes/functions.php");
-  afficherNomsPrenoms($_SESSION['login']); 
+  echo "<h1>";
+  afficherNomsPrenoms($_SESSION['login']);
+  echo "</h1>";
+  echo "<div>"; 
   afficherExperience($_SESSION['login']);
+  echo "<a href='ajoutExp.php'>Ajouter une experience</a><br/>";
+  echo "<div>";
   ?>
 
 <?php require_once "includes/scripts.php"; ?>
