@@ -25,5 +25,5 @@
 
   modifInfosPerso($_SESSION['login'],$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$ville,$mail,$telephone,$promotion);
   
-  redirect('ModifInfosPerso.php');
+  redirect('InfosPerso.php');
 ?>

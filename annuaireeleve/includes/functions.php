@@ -78,6 +78,7 @@ function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,
   
    
 }
+
 function afficherNomsPrenoms($id){
     require("connect.php");
     $requete = $BDD->prepare("SELECT * FROM eleve
@@ -98,6 +99,9 @@ $requete->execute( array($id) ) ;
         //echo "<p>$Tuple[type]</p>";
         echo "<p>$Tuple[libelle]</p>";
         echo "<p>$Tuple[lieu]</p>";
+        echo "<form method='POST' action='ModifExp.php'>
+            <input type='submit' name='envoi' id='$Tuple[idExperience]' value ='Modifier cette expérience'/>
+            </form>";
     }
 }
 function afficherInfosPerso($id){
@@ -123,7 +127,7 @@ $requete->execute( array($id) ) ;
 function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$ville,$mail,$telephone,$promotion)
 {
     require("connect.php");
-    if (isset($_POST['mail']))
+    if ( $mail!="")
     {
         $requete = $BDD->prepare("UPDATE eleve SET mail = :mail
         WHERE login= :login ");
@@ -131,7 +135,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }
-    if (isset($_POST['nom']))
+    if ($nom!="")
     {
         $requete = $BDD->prepare("UPDATE eleve SET nom = :nom
         WHERE login= :login ");
@@ -139,7 +143,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    
-    if (isset($_POST['prenom']))
+    if ($prenom!="")
     {
         $requete = $BDD->prepare("UPDATE eleve SET prenom = :prenom
         WHERE login= :login ");
@@ -147,7 +151,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    
-    if (isset($_POST['promotion']))
+    if ($promotion!=0)
     {
         $requete = $BDD->prepare("UPDATE eleve SET promotion = :promotion
         WHERE login= :login ");
@@ -155,7 +159,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    
-    if (isset($_POST['numRue']))
+    if ($numRue!=0)
     {
         $requete = $BDD->prepare("UPDATE eleve SET numRue = :numRue
         WHERE login= :login ");
@@ -163,7 +167,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    
-    if (isset($_POST['nomRue']))
+    if ($nomRue!="")
     {
         $requete = $BDD->prepare("UPDATE eleve SET nomRue = :nomRue
         WHERE login= :login ");
@@ -171,7 +175,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }
-    if (isset($_POST['ville']))
+    if ($ville!="")
     {
         $requete = $BDD->prepare("UPDATE eleve SET ville = :ville
         WHERE login= :login ");
@@ -179,7 +183,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }
-    if (isset($_POST['codePostal']))
+    if ($codePostal!=0)
     {
         $requete = $BDD->prepare("UPDATE eleve SET codePostal = :codePostal
         WHERE login= :login ");
@@ -187,7 +191,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    
-    if (isset($_POST['telephone']))
+    if ($telephone!=0)
     {
         $requete = $BDD->prepare("UPDATE eleve SET telephone = :telephone
         WHERE login= :login ");
@@ -195,7 +199,7 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
         $requete ->bindValue('login',$id, PDO::PARAM_STR);
         $requete->execute() ;
     }    
-    if (isset($_POST['genre']))
+    if ($genre!="")
     {
         $requete = $BDD->prepare("UPDATE eleve SET genre = :genre
         WHERE login= :login ");
@@ -206,6 +210,66 @@ function modifInfosPerso ($id,$nom,$prenom,$genre,$numRue,$nomRue,$codePostal,$v
 
 
 }
+function modifExp ($id,$libelle,$description,$organisation,$salaire,$Lieu,$type)
+{
+    require("connect.php");
+    if ( $type!="")
+    {
+        $requete = $BDD->prepare("UPDATE experience SET 'type' = :'type'
+        WHERE login= :login ");
+        $requete ->bindValue('type',$type, PDO::PARAM_STR);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }
+    if ($libelle!="")
+    {
+        $requete = $BDD->prepare("UPDATE experience SET libelle = :libelle
+        WHERE login= :login ");
+        $requete ->bindValue('libelle',$libelle, PDO::PARAM_STR);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }    
+    if ($description!="")
+    {
+        $requete = $BDD->prepare("UPDATE experience SET 'description' = :'description'
+        WHERE login= :login ");
+        $requete ->bindValue('description',$description, PDO::PARAM_STR);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }    
+    if ($promotion!=0)
+    {
+        $requete = $BDD->prepare("UPDATE experience SET 'date' = :'date'
+        WHERE login= :login ");
+        $requete ->bindValue('promotion',$promotion, PDO::PARAM_DATE);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }    
+    if ($salaire!=0)
+    {
+        $requete = $BDD->prepare("UPDATE experience SET salaire = :salaire
+        WHERE login= :login ");
+        $requete ->bindValue('salaire',$salaire, PDO::PARAM_STR);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }    
+    if ($Lieu!="")
+    {
+        $requete = $BDD->prepare("UPDATE experience SET Lieu = :Lieu
+        WHERE login= :login ");
+        $requete ->bindValue('Lieu',$Lieu, PDO::PARAM_STR);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }
+    if ($organisation!="")
+    {
+        $requete = $BDD->prepare("UPDATE experience SET organisation = :organisation
+        WHERE login= :login ");
+        $requete ->bindValue('organisation',$organisation, PDO::PARAM_STR);
+        $requete ->bindValue('login',$id, PDO::PARAM_STR);
+        $requete->execute() ;
+    }
 
+}
 
 ?>
