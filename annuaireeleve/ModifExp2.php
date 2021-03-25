@@ -14,9 +14,14 @@
   $lieu=$_POST['lieu'];
   $salaire=$_POST['salaire'];
   $description=$_POST['description'];
+  $idExperience =$_SESSION['idExperience'];
+  $dateFin =$_POST['dateFin'];
+  $organisation=$_POST['organisation'];
+  echo $idExperience;
 
 
-  modifExp($_SESSION['login'],$libelle,$description,$organisation,$salaire,$Lieu,$type);
+
+  modifExp($_SESSION['login'],$libelle,$description,$organisation,$salaire,$lieu,$type,$dateFin,$idExperience);
   
   redirect('Accueil.php');
 ?>

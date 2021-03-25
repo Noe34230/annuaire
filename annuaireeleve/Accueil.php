@@ -15,7 +15,8 @@
   echo "<div>"; 
   afficherExperience($_SESSION['login']);
   echo "<a href='ajoutExp.php'>Ajouter une experience</a><br/>";
-  echo "<div>";
+  echo "</div>";
+
   ?>
 
 <?php require_once "includes/scripts.php"; ?>
