@@ -2,22 +2,25 @@
   <html>
 
   <?php
-  session_start();
+
     $pageTitle = "ajoutExp";
-    require_once "includes/head.php";
+    require "includes/head.php";
     ?>
 
 <body>
 
-<h1>Ajouter une experience</h1>
+
 <?php
+  session_start();
+require_once "includes/functions.php";
+require_once "includes/header.php";
 if(isset($_SESSION['champVideExp'])){
     echo "Veuillez remplir tout les champs";
 }
 
 
 ?>
-
+<h1>Ajouter une experience</h1>
 
 <fieldset>
     <legend>Experience</legend>
@@ -45,6 +48,15 @@ Decrivez votre experience ci-dessous: <p>
 <input type="text" name="lieu" size="50" /><br /><br /><br/>
 <label for="salaire"> Salaire :</label>
 <input type="number" name="salaire" size="50" /><br /><br /><br/>
+<label for="secteurAct">Secteur d'activité</label> <br/> 
+<select name="secteurAct" size="3" multiple>
+<?php afficherSecteurAct();?>
+</select> <br/> <br/>
+<label for="domaineComp">Domaine de compétences</label> <br/> 
+<select name="domaineComp" size="3" multiple>
+<?php afficherDomaineComp();?>
+</select> <br/> <br/>
+<input type="submit" name="ajouter" value="Ajouter"/>
 </fieldset>
 </form>
 

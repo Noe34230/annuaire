@@ -1,20 +1,11 @@
 <?php
 
-
 function getDb() {
-    // Local deployment
      $server = "localhost";
     $username = "ebalatti";
     $password = "mdp";
     $db = "annuaireeleve"; 
-    
-    // Deployment on Heroku with ClearDB for MySQL
-    /*$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-    $server = $url["localhost"];
-    $username = $url["ebalatti"];
-    $password = $url["mdp"];
-    $db = substr($url["anuaireeleve"], 1);*/
-    
+
     return new PDO("mysql:host=$server;dbname=$db;charset=utf8", "$username", "$password",
     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 }
@@ -43,39 +34,47 @@ function ajouterEleve($nom,$prenom,$genre,$mail,$promotion,$telephone,$numRue,$n
     $eleve->bindValue('login',$login,PDO::PARAM_STR);
     $eleve->bindValue('motDePasse',$motDePasse,PDO::PARAM_STR);
 
-    //$eleve->execute(array($nom,$prenom,$date,$genre,$mail,$promotion,$telephone,$numRue,$nomRue,$codePostal,$ville,$login,$motDePasse));
     $eleve->execute();
-   /* echo $login;
-    $db=getDb();
-    // if($db!=null)
-    //echo 'base ok';
-   /* $eleve = $db->prepare('INSERT INTO eleve (nom,prenom,login) VALUES (:nom,:prenom,:dateNaissance,:login)');
-    $eleve->bindValue('login',$login,PDO::PARAM_STR);
-    $eleve->bindValue('nom',$nom,PDO::PARAM_STR);
-    $eleve->bindValue('prenom',$prenom,PDO::PARAM_STR);
-    //$eleve->bindValue('dateNissance',$date,PDO::PARAM_STR);
-    $eleve->execute();*/
    
 }
 
 
-function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,$lieu,$salaire){
-    $exp = getDb()->prepare("INSERT INTO eleve
-    (type,datedeb,libelle,dateFin,description,organisation,lieu,salaire,login)
-    VALUES (:type,:datedeb,:libelle,:dateFin,:description,:organisation,:lieu,:salaire,:login)");
+function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,$lieu,$salaire,$login,$secteurAct,$domaineComp){
+    $rqtNb="SELECT COUNT(*) as total FROM experience";
+    $tabNb=getDb()->query($rqtNb);
+    $nb=$tabNb->fetch();
+    $idExperience=$nb['total']+1;//pour l'incrementation
+
+    $rqtDomaine=getDb()->prepare("SELECT IdDomaine FROM domainecompetence WHERE nomDomaine=?");
+
+    $rqtDomaine->execute(array($domaineComp));
+    $domaine=$rqtDomaine->fetch();
+    $exp = getDb()->prepare("INSERT INTO experience
+    (type,dateDeb,libelle,dateFin,description,organisation,lieu,salaire,login,idExperience)
+    VALUES (:type,:dateDeb,:libelle,:dateFin,:description,:organisation,:lieu,:salaire,:login,:id)");
 
     $exp->bindValue('type',$type,PDO::PARAM_STR);
-    $exp->bindValue('datedeb',$dateDeb,PDO::PARAM_STR);
+    $exp->bindValue('dateDeb',$dateDeb,PDO::PARAM_STR);
     $exp->bindValue('libelle',$libelle,PDO::PARAM_STR);
-    $exp->bindValue('datefin',$dateFin,PDO::PARAM_STR);
+    $exp->bindValue('dateFin',$dateFin,PDO::PARAM_STR);
     $exp->bindValue('description',$description,PDO::PARAM_STR);
     $exp->bindValue('organisation',$organisation,PDO::PARAM_STR);
     $exp->bindValue('lieu',$lieu,PDO::PARAM_STR);
     $exp->bindValue('salaire',$salaire,PDO::PARAM_STR);
-    $exp->bindValue('login',$_SESSION['login'],PDO::PARAM_STR);
+    $exp->bindValue('login',$login,PDO::PARAM_STR);
+    $exp->bindValue('id',$idExperience,PDO::PARAM_INT);
 
     $exp->execute();
-  
+
+    $act =getDb()->prepare("INSERT INTO attribuer (idExperience,IdDomaine)
+    VALUES (:idExperience,:idDomaine)");
+
+    $act->bindvalue('idExperience',$idExperience,PDO::PARAM_INT);
+    $act->bindvalue('IdDomaine',$domaine['IdDomaine'],PDO::PARAM_INT);
+
+    $act->execute();
+    
+
    
 }
 
@@ -149,9 +148,19 @@ $requete->execute( array($id,$idExperience) ) ;
     }
 }
 
-function afficherExperienceRecherchees($type,$organisation,$lieu,$idSecteur,$id){
-    $requete = getDb()->prepare("SELECT * FROM experience EXP, associer ASSO,attribuer ATT,eleve E, domainecompetence, secteuractivite
-    WHERE E.login= :login AND EXP.type= :type AND EXP.login= :login AND EXP.organisation= :organisation AND EXP.lieu= :lieu AND ASSO.IdSecteur= :nomSecteur ANDAND ASSO.idExperience=EXP.idExperience AND ATT.idExperience=EXP.idExperience AND ATT.IdDomaine= :nomDomaine");
+function afficherExperienceRecherchees($type,$organisation,$lieu,$secteurAct,$domaineComp,$id){
+    $requete = getDb()->prepare("SELECT * FROM experience EXP, associer ASSO,attribuer ATT,eleve E, domainecompetence DC, secteuractivite SA
+    WHERE E.login= :login AND E.login= EXP.login AND EXP.type= :type  AND EXP.organisation= :organisation 
+    AND EXP.lieu= :lieu AND SA.nomSecteur= :secteurAct AND ASSO.idSecteur=SA.IdSecteur AND ASSO.idExperience=EXP.idExperience  
+    AND DC.nomDomaine= :domaineComp AND ATT.IdDomaine= DC.idDomaine AND ATT.idExperience=EXP.idExperience");
+
+    $requete->bindValue('type',$type,PDO::PARAM_STR);
+    $requete->bindValue('organisation',$organisation,PDO::PARAM_STR);
+    $requete->bindValue('login',$id,PDO::PARAM_STR);
+    $requete->bindValue('lieu',$lieu,PDO::PARAM_STR);
+    $requete->bindValue('idSecteur',$secteurAct,PDO::PARAM_INT);
+    $requete->bindValue('idExperience',$domaineComp,PDO::PARAM_STR);
+
     $requete->execute() ;
     while ($Tuple = $requete ->fetch()){
         //echo "<p>$Tuple[type]</p>";
@@ -164,8 +173,7 @@ function afficherExperienceRecherchees($type,$organisation,$lieu,$idSecteur,$id)
 }
 
 function afficherInfosPerso($id){
-    require("connect.php");
-    $requete = $BDD->prepare("SELECT * FROM eleve
+    $requete = getDb()->prepare("SELECT * FROM eleve
 WHERE login= ? ");
 $requete->execute( array($id) ) ;
     while ($Tuple = $requete ->fetch()){
