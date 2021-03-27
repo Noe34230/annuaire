@@ -23,5 +23,5 @@
 
   modifExp($_SESSION['login'],$libelle,$description,$organisation,$salaire,$lieu,$type,$dateFin,$idExperience);
   
-  redirect('Accueil.php');
+  redirect('AccueilEleve.php');
 ?>
