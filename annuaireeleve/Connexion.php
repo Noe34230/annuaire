@@ -23,7 +23,7 @@
                 </form>
             </fieldset>
         </div>
-        <a href="inscription.php" class="align-items-center ">Créer un compte</a>
+        <a href="inscription.php" class="btn btn-primary" class="align-items-center ">Créer un compte</a>
     </div>
 
 

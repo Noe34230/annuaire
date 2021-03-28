@@ -3,7 +3,6 @@
     <ul class="navbar-nav">
         <li class="nav-item">
             <?php
-            session_start();
 
             if ($_SESSION['user'] == "eleve") {
                 echo "<a class='nav-link' href='AccueilEleve.php'>Accueil</a>";

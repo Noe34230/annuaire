@@ -120,18 +120,28 @@ WHERE login= ? ");
     $requete->execute(array($id));
     while ($Tuple = $requete->fetch()) {
         //echo "<p>$Tuple[type]</p>";
-        echo "<p>$Tuple[libelle]</p>";
-        echo "<p>$Tuple[lieu]</p>";
-        echo "<form method='POST' action='ModifExp.php'>
+        echo "
+        <fieldset class='form-group border p-5'>
+        <p>$Tuple[libelle]</p>;
+        <p>$Tuple[lieu]</p>;
+        
+        <form method='POST' action='ModifExp.php'>
+            <div class='form-group row'>
                 <label for='idExperience'></label>
                 <input type ='hidden' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
-                <input type='submit' name='envoi' id='envois' value ='Modifier cette expérience'/>
-                </form>";
-        echo "<form method='POST' action='ConsulterExp.php'>
+                <input type ='hidden' name ='libelle' value ='" . $Tuple['libelle'] . "'/> <br/><br/>
+                <input type='submit' name='envoi' class='btn btn-primary' id='envois' value ='Modifier cette expérience'/>
+            </div>
+        </form>";
+        echo "
+        <form method='POST' action='ConsulterExp.php'>
+            <div class='form-group row'>
                 <label for='idExperience'></label>
                 <input type ='hidden' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
-                <input type='submit' name='envoi' id='envois' value ='Consulter cette expérience'/>
-                </form>";
+                <input type='submit' name='envoi'  class='btn btn-primary' id='envois' value ='Consulter cette expérience'/>
+            </div>
+            </fieldset>
+        </form>";
     }
 }
 /*
@@ -336,16 +346,6 @@ function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $
         WHERE login= :login AND idExperience=:idExperience ");
         $requete->bindValue('description', $description, PDO::PARAM_STR);
         $requete->bindValue('login', $id, PDO::PARAM_STR);
-
-        $requete->execute();
-    }
-    if ($promotion != 0) {
-        $requete = getdb()->prepare("UPDATE experience SET 'promotion' = :'promotion'
-        WHERE login= :login ");
-        $requete->bindValue('promotion', $promotion, PDO::PARAM_INT);
-        $requete->bindValue('login', $id, PDO::PARAM_STR);
-
-        $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
 
         $requete->execute();
     }
