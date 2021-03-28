@@ -5,25 +5,21 @@
 
 <body>
 
-  <?php require_once "includes/header.php"; ?>
 
   <?php
-  require("connect.php");
   require("includes/functions.php");
+  session_start();
+  require_once "includes/header.php";
   echo "<h1>";
   afficherNomsPrenoms($_SESSION['login']);
   echo "</h1>";
   echo "<div>";
   echo "</div>";
-  $requete = $BDD->prepare("SELECT * FROM eleve
+  $requete = getDb()->prepare("SELECT * FROM eleve
   WHERE valide = 0 ");
   $requete->execute();
-  echo "<form method='POST' action='GererEleve.php'>
-            <input type='submit' name='envoi' id='envoi' value ='Voir tous les élèves'/>
-          </form>";
-  echo "<form method='POST' action='GererEleve.php'>
-          <input type='submit' name='envoi' id='envoi' value ='Voir toutes les expériences'/>
-        </form>";
+  echo "<a href='GererEleve.php'>Voir tous les élèves</a><br/>";
+  echo "<a href='GererExp.php'>Voir toutes les expériences</a><br/>";
 
   echo "Profils en attente de validation :" . "</br>";
   while ($Tuple = $requete->fetch()) {
@@ -40,7 +36,7 @@
     echo "  <form method='POST' action='ConfirmerEleve.php'>
             <label for='validation'> Accepter ce profil </label>
             <input type ='radio' name ='validation' value='oui'/> 
-            <label for ='validation'> Inspecter ce profil ce profil</label>
+            <label for ='validation'> Supprimer ce profil </label>
             <input type ='radio' name ='validation' value='non'/> 
             <label for='login'></label>
             <input type ='hidden' name ='login' value ='$Tuple[login]'/>

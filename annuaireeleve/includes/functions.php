@@ -138,10 +138,24 @@ WHERE login= ? ");
             <div class='form-group row'>
                 <label for='idExperience'></label>
                 <input type ='hidden' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
+<<<<<<< HEAD
                 <input type='submit' name='envoi'  class='btn btn-primary' id='envois' value ='Consulter cette expérience'/>
             </div>
             </fieldset>
         </form>";
+=======
+                <input type='submit' name='envoi' id='envois' class='btn btn-primary' value ='Consulter cette expérience'/>
+                </div>
+                </fieldset>
+                </form>";
+        echo "  <form method='POST' action='SupprimerExp.php'>
+                <label for ='validation'> Supprimer cet expérience </label>
+                <input type ='radio' name ='validation' value='non'/> 
+                <label for='idexp'></label>
+                <input type ='hidden' name ='idexp' value ='$Tuple[idExperience]'/>
+                <input type='submit' name='envoi' id='envoi' value ='Envoyer'/>
+                </form>";
+>>>>>>> 5a90d3cd3cc372c51806e596587352cbf43d3922
     }
 }
 /*

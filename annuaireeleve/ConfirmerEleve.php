@@ -1,32 +1,28 @@
 <?php
-require("connect.php");
 require("includes/functions.php");
-$valide =$_POST['validation'];
-$login=$_POST['login'];
+$valide = $_POST['validation'];
+$login = $_POST['login'];
 
 echo $login;
 echo $valide;
 
-$voirExp=$_POST['voirExp']; //pas fini
+//$voirExp = $_POST['voirExp']; 
 
-if ($valide=="oui")
-{
-    //$requete = $BDD->prepare("UPDATE eleve SET valide = :valide
-    //WHERE login= :login ");
-    $requete ->bindValue('valide',1, PDO::PARAM_INT);
-    $requete ->bindValue('login',$login, PDO::PARAM_STR);
-    $requete->execute() ;
-}
-else
-{
-    $requete = $BDD->prepare("DELETE FROM experience
+if ($valide == "oui") {
+    $requete = getDb()->prepare("UPDATE eleve SET valide = :valide
+    WHERE login= :login ");
+    $requete->bindValue('valide', 1, PDO::PARAM_INT);
+    $requete->bindValue('login', $login, PDO::PARAM_STR);
+    $requete->execute();
+} else {
+    $requete = getDb()->prepare("DELETE FROM experience
 WHERE login=:login");
-$requete->bindValue('login',$login , PDO::PARAM_INT );
-$requete->execute();
-$requete = $BDD->prepare("DELETE FROM eleve
+    $requete->bindValue('login', $login, PDO::PARAM_STR);
+    $requete->execute();
+    $RQT = getdb()->prepare("DELETE FROM eleve
 WHERE login=:login");
-$requete->bindValue('login',$login , PDO::PARAM_INT );
-$requete->execute();
+    $RQT->bindValue('login', $login, PDO::PARAM_STR);
+    $RQT->execute();
 }
 
 
