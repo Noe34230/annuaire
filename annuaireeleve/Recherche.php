@@ -15,14 +15,15 @@ require_once "includes/functions.php";
 <form method="POST" action="rechercherExp.php">
 <label for="type">Type :</label>
 <select name="type" size="1" >
-<option value="stage">Stage</option>
-<option value="emploi">emploi</option>
-<option value="alternance">Alternance</option>
-<option value="Benevole">benevole</option>
+<option value="Stage">Stage</option>
+<option value="Emploi">Emploi</option>
+<option value="Alternance">Alternance</option>
+<option value="Benevole">Benevole</option>
 <option value="Autre">Autre</option>
 </select><br/><br/>
 <label for="domaineComp">Domaine de compétences</label> <br/> 
-<select name="domaineComp" size="3" multiple>
+<select name="domaineComp" size="3">
+<option value="tout" selected>Tout</option>
 <?php afficherDomaineComp();?>
 </select> <br/> <br/>
 <label for="organisation"> Organisation</label>
@@ -30,7 +31,8 @@ require_once "includes/functions.php";
 <label for="lieu"> Lieu</label>
 <input type="text" name="lieu"> <br/> <br/>
 <label for="secteurAct">Secteur d'activité</label> <br/> 
-<select name="secteurAct" size="3" multiple>
+<select name="secteurAct" size="3">
+<option value="tout" selected>Tout</option>
 <?php afficherSecteurAct();?>
 </select> <br/> <br/>
 <label for="promotion">Promotion du stagiaire</label> 

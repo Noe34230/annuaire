@@ -45,10 +45,11 @@ function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,
     $nb=$tabNb->fetch();
     $idExperience=$nb['total']+1;//pour l'incrementation
 
-    $rqtDomaine=getDb()->prepare("SELECT IdDomaine FROM domainecompetence WHERE nomDomaine=?");
+  /*  $rqtDomaine=getDb()->prepare("SELECT IdDomaine FROM domainecompetence WHERE nomDomaine= :nomDomaine");
+    $rqtDomaine->bindvalue('nomDomaine',$domaineComp,PDO::PARAM_STR);
+    $rqtDomaine->execute();
+    $domaine=$rqtDomaine->fetch();*/
 
-    $rqtDomaine->execute(array($domaineComp));
-    $domaine=$rqtDomaine->fetch();
     $exp = getDb()->prepare("INSERT INTO experience
     (type,dateDeb,libelle,dateFin,description,organisation,lieu,salaire,login,idExperience)
     VALUES (:type,:dateDeb,:libelle,:dateFin,:description,:organisation,:lieu,:salaire,:login,:id)");
@@ -66,13 +67,13 @@ function ajouterExp($type,$dateDeb,$libelle,$dateFin,$description,$organisation,
 
     $exp->execute();
 
-    $act =getDb()->prepare("INSERT INTO attribuer (idExperience,IdDomaine)
-    VALUES (:idExperience,:idDomaine)");
+   /* $act =getDb()->prepare("INSERT INTO attribuer (idExperience,IdDomaine)
+    VALUES (:idExperience,:IdDomaine)");
 
     $act->bindvalue('idExperience',$idExperience,PDO::PARAM_INT);
-    $act->bindvalue('IdDomaine',$domaine['IdDomaine'],PDO::PARAM_INT);
+    $act->bindvalue('IdDomaine',$domaine,PDO::PARAM_INT);
 
-    $act->execute();
+    $act->execute();*/
     
 
    
@@ -118,35 +119,52 @@ $requete->execute( array($id) ) ;
         echo "<p>$Tuple[lieu]</p>";
         echo "<form method='POST' action='ModifExp.php'>
                 <label for='idExperience'></label>
-                <input type ='hidden' name ='idExperience' value ='$Tuple[idExperience]'/> <br/><br/>
+                <input type ='hidden' name ='idExperience' value ='".$Tuple['idExperience']."'/> <br/><br/>
                 <input type='submit' name='envoi' id='envois' value ='Modifier cette expérience'/>
                 </form>";
         echo "<form method='POST' action='ConsulterExp.php'>
                 <label for='idExperience'></label>
-                <input type ='hidden' name ='idExperience' value ='$Tuple[idExperience]'/> <br/><br/>
+                <input type ='hidden' name ='idExperience' value ='".$Tuple['idExperience']."'/> <br/><br/>
                 <input type='submit' name='envoi' id='envois' value ='Consulter cette expérience'/>
                 </form>";
     }
 }
+/*
 function afficherExperiencePerso2($id, $idExperience){
-    require("connect.php");
-    $requete = $BDD->prepare("SELECT * FROM experience
-WHERE login= ?  AND idExperience=?");
-$requete->execute( array($id,$idExperience) ) ;
-    while ($Tuple = $requete ->fetch()){
-        echo "<p>$Tuple[type]</p>";
-        echo "<p>$Tuple[libelle]</p>";
-        echo "<p>$Tuple[lieu]</p>";
-        echo "<p>$Tuple[dateDeb]</p>";
-        echo "<p>$Tuple[dateFin]</p>";
-        echo "<p>$Tuple[description]</p>";
-        echo "<p>$Tuple[organisation]</p>";
-        echo "<p>$Tuple[salaire]</p>";
+    $requete = getDb()->prepare("SELECT * FROM experience
+    WHERE login= ?  AND idExperience=?");
+    $requete->execute( array($id,$idExperience)) ;
+    $Tuple = $requete ->fetch();
+        echo "<p>$Tuple[type]<br/>;
+                $Tuple[libelle]<br/>;
+                $Tuple[lieu]<br/>;
+                $Tuple[dateDeb]<br/>;
+                $Tuple[dateFin]<br/>;
+                $Tuple[description]<br/>;
+                $Tuple[organisation]<br/>;
+                $Tuple[salaire]<br/><p>";
+        print "si il affiche rien c'est chaud"; 
+        echo $idExperience;  
+}*/
 
-
-
-    }
+function afficherExperiencePerso2($idExperience){
+    $requete = getDb()->prepare("SELECT * FROM experience
+    WHERE idExperience=?");
+    $requete->execute( array($idExperience)) ;
+    $Tuple = $requete ->fetch();
+        echo "<p>$Tuple[type]<br/>;
+                $Tuple[libelle]<br/>;
+                $Tuple[lieu]<br/>;
+                $Tuple[dateDeb]<br/>;
+                $Tuple[dateFin]<br/>;
+                $Tuple[description]<br/>;
+                $Tuple[organisation]<br/>;
+                $Tuple[salaire]<br/><p>";
+        print "si il affiche rien c'est chaud"; 
+        echo $idExperience;  
 }
+
+
 
 function afficherExperienceRecherchees($type,$organisation,$lieu,$secteurAct,$domaineComp,$id){
     $requete = getDb()->prepare("SELECT * FROM experience EXP, associer ASSO,attribuer ATT,eleve E, domainecompetence DC, secteuractivite SA
@@ -166,7 +184,30 @@ function afficherExperienceRecherchees($type,$organisation,$lieu,$secteurAct,$do
         //echo "<p>$Tuple[type]</p>";
         echo "<p>$Tuple[libelle]</p>";
         echo "<p>$Tuple[lieu]</p>";
-        echo "<form method='POST' action='ConsultExp.php'>
+        echo "<form method='POST' action='ConsulterExp.php'>
+            <input type='submit' name='Consulter' id='$Tuple[idExperience]' value ='Consulter cette experience'/>
+            </form>";
+    }
+}
+
+function afficherExperienceRechercheesBIS($type,$organisation,$lieu){
+    $requete = getDb()->prepare("SELECT * FROM experience WHERE
+    type= :type AND organisation= :organisation AND lieu= :lieu");
+
+    $requete->bindValue('type',$type,PDO::PARAM_STR);
+    $requete->bindValue('organisation',$organisation,PDO::PARAM_STR);
+    //$requete->bindValue('login',$id,PDO::PARAM_STR);
+    $requete->bindValue('lieu',$lieu,PDO::PARAM_STR);
+    
+
+    $requete->execute() ;
+
+    while ($Tuple = $requete ->fetch()){
+        //echo "<p>$Tuple[type]</p>";
+        echo "<p>$Tuple[libelle]</p>";
+        echo "<p>$Tuple[lieu]</p>";
+        echo "<form method='POST' action='ConsulterExp.php'>
+            <input type='hidden' name='idExperience' value='$Tuple[idExperience]'>
             <input type='submit' name='Consulter' id='$Tuple[idExperience]' value ='Consulter cette experience'/>
             </form>";
     }
