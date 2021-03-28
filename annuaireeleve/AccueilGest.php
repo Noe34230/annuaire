@@ -8,7 +8,6 @@
 
 <?php 
   require("connect.php");
-  session_start();
   require("includes/functions.php");
   echo "<h1>";
   afficherNomsPrenoms($_SESSION['login']);
@@ -19,13 +18,9 @@
   WHERE valide = 0 ");
   $requete->execute();
     echo "<form method='POST' action='GererEleve.php'>
-            <label for='voirEleves'></label>
-            <input type ='hidden' name ='voirEleves' value ='1'/>
             <input type='submit' name='envoi' id='envoi' value ='Voir tous les élèves'/>
           </form>";
     echo "<form method='POST' action='GererEleve.php'>
-          <label for='voirExp'></label>
-          <input type ='hidden' name ='voirExp' value ='1'/>
           <input type='submit' name='envoi' id='envoi' value ='Voir toutes les expériences'/>
         </form>";
 
@@ -41,7 +36,7 @@
       echo "Téléphone : "."$Tuple[telephone]"."</br>";
       echo "Mail : "."$Tuple[mail]"."</br>";
       echo "Promotion : "."$Tuple[promotion]"."</br>"."</br>";
-      echo "  <form method='POST' action='GererEleve.php'>
+      echo "  <form method='POST' action='ConfirmerEleve.php'>
             <label for='validation'> Accepter ce profil </label>
             <input type ='radio' name ='validation' value='oui'/> 
             <label for ='validation'> Inspecter ce profil ce profil</label>
