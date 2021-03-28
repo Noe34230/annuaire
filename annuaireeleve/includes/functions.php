@@ -132,6 +132,13 @@ WHERE login= ? ");
                 <input type ='hidden' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
                 <input type='submit' name='envoi' id='envois' value ='Consulter cette expérience'/>
                 </form>";
+        echo "  <form method='POST' action='SupprimerExp.php'>
+                <label for ='validation'> Supprimer cet expérience </label>
+                <input type ='radio' name ='validation' value='non'/> 
+                <label for='idexp'></label>
+                <input type ='hidden' name ='idexp' value ='$Tuple[idExperience]'/>
+                <input type='submit' name='envoi' id='envoi' value ='Envoyer'/>
+                </form>";
     }
 }
 /*
@@ -336,16 +343,6 @@ function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $
         WHERE login= :login AND idExperience=:idExperience ");
         $requete->bindValue('description', $description, PDO::PARAM_STR);
         $requete->bindValue('login', $id, PDO::PARAM_STR);
-
-        $requete->execute();
-    }
-    if ($promotion != 0) {
-        $requete = getdb()->prepare("UPDATE experience SET 'promotion' = :'promotion'
-        WHERE login= :login ");
-        $requete->bindValue('promotion', $promotion, PDO::PARAM_INT);
-        $requete->bindValue('login', $id, PDO::PARAM_STR);
-
-        $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
 
         $requete->execute();
     }
