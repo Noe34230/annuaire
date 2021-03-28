@@ -2,41 +2,42 @@
 <html>
 
 <?php require_once "includes/head.php"; ?>
+
 <body>
 
-<?php require_once "includes/header.php"; ?>
+  <?php require_once "includes/header.php"; ?>
 
-<?php 
+  <?php
   require("connect.php");
   require("includes/functions.php");
   echo "<h1>";
   afficherNomsPrenoms($_SESSION['login']);
   echo "</h1>";
-  echo "<div>"; 
+  echo "<div>";
   echo "</div>";
   $requete = $BDD->prepare("SELECT * FROM eleve
   WHERE valide = 0 ");
   $requete->execute();
-    echo "<form method='POST' action='GererEleve.php'>
+  echo "<form method='POST' action='GererEleve.php'>
             <input type='submit' name='envoi' id='envoi' value ='Voir tous les élèves'/>
           </form>";
-    echo "<form method='POST' action='GererEleve.php'>
+  echo "<form method='POST' action='GererEleve.php'>
           <input type='submit' name='envoi' id='envoi' value ='Voir toutes les expériences'/>
         </form>";
 
-        echo "Profils en attente de validation :"."</br>";
-        while ($Tuple = $requete ->fetch()){
-      echo "Prénom : "."$Tuple[prenom]"."</br>";
-      echo "Nom : "."$Tuple[nom]"."</br>";
-      echo "Genre : "."$Tuple[genre]"."</br>";
-      echo "Numéro de rue : "."$Tuple[numRue]"."</br>";
-      echo "Nom de rue : "."$Tuple[nomRue]"."</br>";
-      echo "Code Postal : "."$Tuple[codePostal]"."</br>";
-      echo "Ville : "."$Tuple[ville]"."</br>";
-      echo "Téléphone : "."$Tuple[telephone]"."</br>";
-      echo "Mail : "."$Tuple[mail]"."</br>";
-      echo "Promotion : "."$Tuple[promotion]"."</br>"."</br>";
-      echo "  <form method='POST' action='ConfirmerEleve.php'>
+  echo "Profils en attente de validation :" . "</br>";
+  while ($Tuple = $requete->fetch()) {
+    echo "Prénom : " . "$Tuple[prenom]" . "</br>";
+    echo "Nom : " . "$Tuple[nom]" . "</br>";
+    echo "Genre : " . "$Tuple[genre]" . "</br>";
+    echo "Numéro de rue : " . "$Tuple[numRue]" . "</br>";
+    echo "Nom de rue : " . "$Tuple[nomRue]" . "</br>";
+    echo "Code Postal : " . "$Tuple[codePostal]" . "</br>";
+    echo "Ville : " . "$Tuple[ville]" . "</br>";
+    echo "Téléphone : " . "$Tuple[telephone]" . "</br>";
+    echo "Mail : " . "$Tuple[mail]" . "</br>";
+    echo "Promotion : " . "$Tuple[promotion]" . "</br>" . "</br>";
+    echo "  <form method='POST' action='ConfirmerEleve.php'>
             <label for='validation'> Accepter ce profil </label>
             <input type ='radio' name ='validation' value='oui'/> 
             <label for ='validation'> Inspecter ce profil ce profil</label>
@@ -49,6 +50,7 @@
 
   ?>
 
-<?php require_once "includes/scripts.php"; ?>
+  <?php require_once "includes/scripts.php"; ?>
 </body>
+
 </html>

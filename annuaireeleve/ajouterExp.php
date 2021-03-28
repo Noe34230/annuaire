@@ -13,6 +13,7 @@ else{
     ajouterExp($_POST['type'],date('Y-m-d',strtotime($_POST['dateDeb'])),$_POST['libelle'],date('Y-m-d',strtotime($_POST['dateFin'])),
     $_POST['description'],$_POST['organisation'], $_POST['lieu'],$_POST['salaire'],$_SESSION['login'],
     $_POST['secteurAct'],$_POST['domaineComp']);
+    $_SESSION['champVideExp']=null;
     header('Location: ajoutExp.php');
 }
 

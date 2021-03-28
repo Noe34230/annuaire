@@ -11,7 +11,7 @@
   require("includes/functions.php");
   $idExperience=$_POST['idExperience'];
   $id=$_SESSION['login'];
-  afficherExperiencePerso2($id,$idExperience);
+  afficherExperiencePerso2($idExperience);
 
   ?>
 
