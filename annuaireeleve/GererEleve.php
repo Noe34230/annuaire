@@ -11,6 +11,7 @@
       $requete = getDb()->prepare("SELECT * FROM eleve");
       $requete->execute();
       while ($Tuple = $requete->fetch()) {
+            echo "<fieldset class='form-group border p-3'>";
             echo "Prénom : " . "$Tuple[prenom]" . "</br>";
             echo "Nom : " . "$Tuple[nom]" . "</br>";
             echo "Genre : " . "$Tuple[genre]" . "</br>";
@@ -21,13 +22,20 @@
             echo "Téléphone : " . "$Tuple[telephone]" . "</br>";
             echo "Mail : " . "$Tuple[mail]" . "</br>";
             echo "Promotion : " . "$Tuple[promotion]" . "</br>" . "</br>";
-            echo "  <form method='POST' action='ConfirmerEleve.php'>
-            <label for ='validation'> Supprimer ce profil </label>
-            <input type ='radio' name ='validation' value='non'/> 
-            <label for='login'></label>
-            <input type ='hidden' name ='login' value ='$Tuple[login]'/>
-            <input type='submit' name='envoi' id='envoi' value ='Envoyer'/>
-            </form>";
+            echo "  
+            <div class='d-flex justify-content-center align-items-center container '>
+                <form method='POST' action='ConfirmerEleve.php'>
+                    <div class='form-group row'>
+                        <label for='login' class='col-form-label'></label>
+                        <div class='col'>
+                            <input type='hidden' name='login' class='form-control' value='$Tuple[login]' />
+                        </div>
+                    </div>
+        
+                    <input type='submit' name='envoi' class='btn btn-primary' id='envoi' value='Supprimer ce profil' />
+                    </fieldset>
+                </form>
+        </div>";
       }
       ?>
 </body>

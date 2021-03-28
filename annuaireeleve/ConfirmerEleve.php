@@ -14,7 +14,7 @@ if ($valide == "oui") {
     $requete->bindValue('valide', 1, PDO::PARAM_INT);
     $requete->bindValue('login', $login, PDO::PARAM_STR);
     $requete->execute();
-} else {
+} else if ($valide == "non") {
     $requete = getDb()->prepare("DELETE FROM experience
 WHERE login=:login");
     $requete->bindValue('login', $login, PDO::PARAM_STR);
@@ -27,4 +27,4 @@ WHERE login=:login");
 
 
 
-redirect('AccueilGest.php');
+redirect('GererEleve.php');

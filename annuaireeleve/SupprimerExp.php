@@ -15,4 +15,4 @@ $requete->execute();
 
 
 
-redirect('AccueilGest.php');
+redirect('GererExp.php');

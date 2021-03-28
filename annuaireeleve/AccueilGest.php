@@ -33,15 +33,29 @@
     echo "Téléphone : " . "$Tuple[telephone]" . "</br>";
     echo "Mail : " . "$Tuple[mail]" . "</br>";
     echo "Promotion : " . "$Tuple[promotion]" . "</br>" . "</br>";
-    echo "  <form method='POST' action='ConfirmerEleve.php'>
-            <label for='validation'> Accepter ce profil </label>
-            <input type ='radio' name ='validation' value='oui'/> 
-            <label for ='validation'> Supprimer ce profil </label>
-            <input type ='radio' name ='validation' value='non'/> 
+    echo "  <div class='d-flex justify-content-center align-items-center container '>
+    <fieldset class='form-group border p-3'>
+        <form method='POST' action='ConfirmerEleve.php'>
+            <div class='form-group row'>
+
+                <label for='validation'> Accepter ce profil </label>
+                <div class='col'>
+                    <input type='radio' name='validation' value='oui' />
+                </div>
+            </div>
+            <div class='form-group row'>
+                <label for='validation'> Supprimer ce profil </label>
+                <div class='col'>
+                    <input type='radio' name='validation' value='non' />
+                </div>
+            </div>
+
             <label for='login'></label>
-            <input type ='hidden' name ='login' value ='$Tuple[login]'/>
-            <input type='submit' name='envoi' id='envoi' value ='Envoyer'/>
-            </form>";
+            <input type='hidden' name='login' value='$Tuple[login]' />
+            <input type='submit' name='envoi' id='envoi' value='Envoyer' />
+        </form>
+    </fieldset>
+</div>";
   }
 
   ?>
