@@ -35,8 +35,6 @@ require_once "includes/functions.php";
 <option value="tout" selected>Tout</option>
 <?php afficherSecteurAct();?>
 </select> <br/> <br/>
-<label for="promotion">Promotion du stagiaire</label> 
-<input type="number" name="promotion"> <br/><br/>
 <input type="submit" name="rechercher" value="Rechercher">
 
 

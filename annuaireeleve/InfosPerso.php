@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
+<?php require_once "includes/head.php" ?>
 
-<head>
+<body>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Informations Personelles</title>
-
-</head>
-<?php 
+  <?php
   session_start();
-  require("includes/functions.php");
-  afficherInfosPerso($_SESSION['login']);
-?>
+  require_once "includes/header.php";
+  require_once "includes/functions.php";
+  ?>
+  <div class="container">
+    <?php afficherInfosPerso($_SESSION['login']) ?>
     <form method="POST" action="ModifInfosPerso.php">
-        </br>
-        <input type="submit" name="envoi" id="envoi" value ="Modifier mes Informations Personelles"/>
-    </form>
-
+      <input type="submit" class="btn btn-primary" name="envoi" id="envoi" value="Modifier mes Informations Personelles" />
+  </div>
+  </form>
+</body>

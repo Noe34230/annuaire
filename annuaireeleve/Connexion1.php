@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <meta charset="utf-8" />
-        <h1>CONNEXION</h1>
-        <br/>
-        <br/>
-        <?php 
-            session_start();
-            $_SESSION['user']=$_POST['user'];
+<?php require_once "includes/head.php" ?>
 
-            
-            if (isset($_SESSION['message']))
-            {print "Utilisateur ou mdp non reconnu, veuillez réessayez"; }
-        ?>
-        <form method="POST" action="Connexion2.php">
-            <label for="login"> login :</label>
-            <input type ="text" name ="login"/> <br/><br/>
-            <label for ="mdp"> mot de passe :</label>
-            <input type ="password" name ="mdp" /> <br/><br/>
-            <input type="submit" name="envoi" id="envoi" value ="Envoyer"/>
-        </form>
-    </body>
+<body>
+
+    <?php
+    session_start();
+    $_SESSION['user'] = $_POST['user'];
+
+
+    if (isset($_SESSION['message'])) {
+        print "Utilisateur ou mdp non reconnu, veuillez réessayez";
+    }
+    ?>
+    <div class="container">
+        <h1>CONNEXION</h1>
+        <div class="d-flex justify-content-center align-items-center container ">
+            <form method="POST" action="Connexion2.php">
+                <div class="form-group row">
+                    <label for="login" class="col-form-label"> login :</label>
+                    <div class="col">
+                        <input type="text" class="form-control" name="login" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="mdp" class="col-form-label"> mot de passe :</label>
+                    <div class="col">
+                        <input type="password" class="form-control" name="mdp" />
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" name="envoi" id="envoi" value="Envoyer" />
+            </form>
+        </div>
+</body>
+
 </html>
