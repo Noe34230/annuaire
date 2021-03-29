@@ -147,7 +147,8 @@ WHERE login= ? ");
                 <label for='idexp'></label>
                 <input type ='hidden' class='form-control' name ='idexp' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
                 <input type='submit' name='envoi' id='envoi' class='btn btn-primary' value ='Supprimer cet expérience'/>
-                </form>";
+                </form>
+            </div>";
         echo "</fieldset>";
     }
 }
