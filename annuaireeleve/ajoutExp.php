@@ -1,65 +1,115 @@
 <!doctype html>
-  <html>
+<html>
 
-  <?php
+<?php
 
-    $pageTitle = "ajoutExp";
-    require "includes/head.php";
-    ?>
+$pageTitle = "ajoutExp";
+require "includes/head.php";
+?>
 
 <body>
 
 
-<?php
+  <?php
   session_start();
-require_once "includes/functions.php";
-require_once "includes/header.php";
-if(isset($_SESSION['champVideExp'])){
+  require_once "includes/functions.php";
+  require_once "includes/header.php";
+  if (isset($_SESSION['champVideExp'])) {
     echo "Veuillez remplir tout les champs";
-}
+  }
 
 
-?>
-<h1>Ajouter une experience</h1>
 
-<fieldset>
-    <legend>Experience</legend>
-<form method="POST" action="ajouterExp.php">
-<select name="type" size="3" multiple>
-<option value="stage">Stage</option>
-<option value="emploi">emploi</option>
-<option value="alternance">Alternance</option>
-<option value="Benevole">benevole</option>
-<option value="Autre">Autre</option>
-</select><br /><br /><br/>
-<label for="libelle"> Libelle :</label>
-<input type="text" name="libelle" size="50" /><br /><br /><br/>
-<label for="dateDeb"> Date de début :</label>
-<input type="date" name="dateDeb" /><br /><br /><br/>
-<label for="dateFin"> Date de fin </label>
-<input type="date" name="dateFin" /><br /><br /><br/>
-<p>
-Decrivez votre experience ci-dessous: <p>
-<textarea name="description" rows=4 COLS=20></textarea> 
-<br/><br/><br/>
-<label for="organisation"> Organisation :</label>
-<input type="text" name="organisation" size="50" /><br /><br /><br/>
-<label for="lieu"> Lieu :</label>
-<input type="text" name="lieu" size="50" /><br /><br /><br/>
-<label for="salaire"> Salaire :</label>
-<input type="number" name="salaire" size="50" /><br /><br /><br/>
-<label for="secteurAct">Secteur d'activité</label> <br/> 
-<select name="secteurAct" size="3" multiple>
-<?php afficherSecteurAct();?>
-</select> <br/> <br/>
-<label for="domaineComp">Domaine de compétences</label> <br/> 
-<select name="domaineComp" size="3" multiple>
-<?php afficherDomaineComp();?>
-</select> <br/> <br/>
-<input type="submit" name="ajouter" value="Ajouter"/>
-</fieldset>
-</form>
 
+  ?>
+  <div class="container">
+    <h1>Ajouter une experience</h1>
+
+    <fieldset class="form-group border p-3">
+      <legend>Experience</legend>
+      <form method="POST" action="ajouterExp.php">
+        <div class="form-group row">
+          <label class="col-form-label" for="type">Type </label>
+          <div class="col">
+            <select name="type">
+              <option value="stage">Stage</option>
+              <option value="emploi">emploi</option>
+              <option value="alternance">Alternance</option>
+              <option value="Benevole">benevole</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <?php
+        if ($_SESSION['user'] != "eleve") {
+          echo " <div class='form-group row'>
+            <label for='eleve' class='col-form-label'> Pour quelle eleve :</label>
+            <div class='col'>
+              <input type='texte' class='form-control' name='eleve' />
+            </div>
+          </div>";
+        }
+        ?>
+        <div class="form-group row">
+          <label for="libelle" class="col-form-label"> Libelle :</label>
+          <div class="col">
+            <input type="texte" class="form-control" name="libelle" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="datDeb" class="col-form-label">Date à laquelle l'expérience a commencé :</label>
+          <div class="col">
+            <input type="date" class="form-control" name="dateDeb" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="dateFin" class="col-form-label"> Date à laquelle l'expérience s'est terminée :</label>
+          <div class="col">
+            <input type="date" class="form-control" name="dateFin" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description" class="col-form-label"> Description :</label>
+          <textarea class="form-control" rows="5" name="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="organisation" class="col-form-label"> Organisation :</label>
+          <div class="col">
+            <input type="text" class="form-control" name="organisation" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lieu" class="col-form-label"> Lieu :</label>
+          <div class="col">
+            <input type="texte" class="form-control" name="lieu" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="salaire" class="col-form-label"> Salaire :</label>
+          <div class="col">
+            <input type="text" class="form-control" name="salaire" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label" for="secteurAct">Secteur d'activité</label>
+          <div class="col">
+            <select name="secteurAct" size="3" multiple>
+              <?php afficherSecteurAct(); ?>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label" for="domaineComp">Domaine de compétences</label>
+          <div class="col">
+            <select name="domaineComp" size="3" multiple>
+              <?php afficherDomaineComp(); ?>
+            </select>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-primary" name="ajouter" value="Ajouter" />
+    </fieldset>
+    </form>
+  </div>
 </body>
 
 

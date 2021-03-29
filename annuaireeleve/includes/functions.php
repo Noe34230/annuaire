@@ -128,8 +128,8 @@ WHERE login= ? ");
         <form method='POST' action='ModifExp.php'>
             <div class='form-group row'>
                 <label for='idExperience'></label>
-                <input type ='hidden' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
-                <input type ='hidden' name ='libelle' value ='" . $Tuple['libelle'] . "'/> <br/><br/>
+                <input type ='hidden' class='form-control' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> 
+                <input type ='hidden' class='form-control' name ='libelle' value ='" . $Tuple['libelle'] . "'/> 
                 <input type='submit' name='envoi' class='btn btn-primary' id='envois' value ='Modifier cette expérience'/>
             </div>
         </form>";
@@ -137,18 +137,18 @@ WHERE login= ? ");
         <form method='POST' action='ConsulterExp.php'>
             <div class='form-group row'>
                 <label for='idExperience'></label>
-                <input type ='hidden' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
+                <input type ='hidden' class='form-control' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
                 <input type='submit' name='envoi' id='envois' class='btn btn-primary' value ='Consulter cette expérience'/>
-                </div>
-                </fieldset>
+            </div>
                 </form>";
-        echo "  <form method='POST' action='SupprimerExp.php'>
-                <label for ='validation'> Supprimer cet expérience </label>
-                <input type ='radio' name ='validation' value='non'/> 
+        echo "  
+        <form method='POST' action='SupprimerExp.php'>
+            <div class='form-group row'>
                 <label for='idexp'></label>
-                <input type ='hidden' name ='idexp' value ='$Tuple[idExperience]'/>
-                <input type='submit' name='envoi' id='envoi' value ='Envoyer'/>
+                <input type ='hidden' class='form-control' name ='idexp' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
+                <input type='submit' name='envoi' id='envoi' class='btn btn-primary' value ='Supprimer cet expérience'/>
                 </form>";
+        echo "</fieldset>";
     }
 }
 /*
@@ -253,6 +253,10 @@ WHERE login= ? ");
         echo "Mail : " . "$Tuple[mail]" . "</br>";
         echo "Promotion : " . "$Tuple[promotion]" . "</br>";
     }
+}
+
+function modifsinfosPersoBis($id, $nom, $prenom, $genre, $numRue, $nomRue, $codePostal, $ville, $mail, $telephone, $promotion)
+{
 }
 
 function modifInfosPerso($id, $nom, $prenom, $genre, $numRue, $nomRue, $codePostal, $ville, $mail, $telephone, $promotion)
