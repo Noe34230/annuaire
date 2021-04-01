@@ -18,7 +18,9 @@
       </form>";
     } else {
       afficherInfosPerso($_POST['login']);
+      // if ($_SESSION['user'] == 'eleve') {
       afficherExperience($_POST['login']);
+      // }
     }
     ?>
 

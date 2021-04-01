@@ -15,7 +15,7 @@ $_SESSION['idExperience'] = $_POST['idExperience'];
 <div class="container">
   <?php echo $_POST['libelle'] ?>
   <fieldset class="form-group border p-3">
-    <form method="POST" action="Modifexp2.php">
+    <form method="POST" action="ModifExp2.php">
       <div class="form-group row">
         <label class="col-form-label" for="type">Type </label>
         <div class="col">

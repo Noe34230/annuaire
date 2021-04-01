@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2021 at 11:09 AM
+-- Generation Time: Apr 01, 2021 at 04:02 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -60,7 +60,6 @@ CREATE TABLE `domainecompetence` (
 --
 
 INSERT INTO `domainecompetence` (`IdDomaine`, `nomDomaine`) VALUES
-(0, NULL),
 (1, 'Experience utilisateur(UX)'),
 (2, 'Facteur humains (FH)'),
 (3, 'Robotique'),
@@ -103,8 +102,10 @@ CREATE TABLE `eleve` (
 --
 
 INSERT INTO `eleve` (`login`, `promotion`, `mail`, `telephone`, `genre`, `numRue`, `nomRue`, `valide`, `codePostal`, `ville`, `nom`, `prenom`, `motDePasse`, `dateNaissance`) VALUES
-('lmessi', '2015', 'lmessi@ensc.fr', 607060706, 'Femme', 2, 'Rue de l\'arbre', 1, 74000, 'Annecy', 'Messi', 'Lionel', 'leo74', '0000-00-00'),
-('zzidane', '2006', 'zzidane@ensc.fr', 606060606, 'Homme', 1, 'Rue de la paix', 1, 13000, 'Marseille', 'Zidane', 'Zinedine', 'zizou13', '0000-00-00');
+('enzoBalatti', '2023', 'enzo.balatti@gmail.com', 678455939, 'homme', 20, 'rue Paul antin', 1, 74320, 'Sévrier', 'Balatti', 'Enzo', 'mdp', '1999-12-19'),
+('leodicap', '2000', 'adazf@afae.com', 2147483647, 'autre', 20, 'sdvzdv', 1, 45000, 'sedan', 'Dicaprio', 'leonardo', 'mdp', '2021-03-01'),
+('lmessi', '2023', 'lmessi@ensc.fr', 678455939, 'Femme', 20, 'Rue de l\'arbre', 1, 74320, 'Annecy', 'Messi', 'Lionel', 'leo74', '1987-06-24'),
+('zzidane', '2023', 'zzidane@ensc.fr', 678455939, 'Homme', 20, 'Rue de la paix', 1, 74320, 'Marseille', 'Zidane', 'Zinedine', 'zizou13', '1972-06-23');
 
 -- --------------------------------------------------------
 
@@ -194,14 +195,14 @@ INSERT INTO `secteuractivite` (`IdSecteur`, `nomSecteur`) VALUES
 --
 ALTER TABLE `associer`
   ADD PRIMARY KEY (`idExperience`,`IdSecteur`),
-  ADD KEY `IdSecteur` (`IdSecteur`);
+  ADD KEY `IdSecteur` (`IdSecteur`,`idExperience`) USING BTREE;
 
 --
 -- Indexes for table `attribuer`
 --
 ALTER TABLE `attribuer`
   ADD PRIMARY KEY (`idExperience`,`IdDomaine`),
-  ADD KEY `IdDomaine` (`IdDomaine`);
+  ADD KEY `IdDomaine` (`IdDomaine`,`idExperience`) USING BTREE;
 
 --
 -- Indexes for table `domainecompetence`

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-<?php require_once "includes/head.php" ?>
+<?php
+session_start();
+require_once "includes/head.php" ?>
 
 <body>
-    <?php
-    session_start()
-    ?>
     <div class="container">
         <h1>CONNEXION</h1><br /><br />
         <div class="d-flex justify-content-center align-items-center container ">
@@ -13,7 +12,7 @@
                 <form method="POST" action="Connexion1.php">
                     <div class=" form-check">
                         <input type="radio" class="form-check-input" name="user" id="eleve" value="eleve" />
-                        <label for="user" class="form-check-label">ELEVE</label>
+                        <label for="user" class="form-check-label">Eleve</label>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="user" id="admin" value="admin" />

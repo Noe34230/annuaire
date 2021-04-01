@@ -6,8 +6,9 @@
 <body>
 
     <?php
-    require("includes/functions.php");
     session_start();
+    require("includes/functions.php");
+
     require_once "includes/header.php";
     echo "<h1>";
     afficherNomsPrenoms($_SESSION['login']);

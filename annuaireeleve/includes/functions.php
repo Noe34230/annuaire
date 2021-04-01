@@ -120,7 +120,10 @@ WHERE login= ? ");
     $requete->execute(array($id));
     while ($Tuple = $requete->fetch()) {
         //echo "<p>$Tuple[type]</p>";
-        echo "
+        if ($id == $_SESSION['login']) {
+            echo $id;
+            echo $_SESSION['login'];
+            echo "
         <fieldset class='form-group border p-5'>
         <p>$Tuple[libelle]</p>;
         <p>$Tuple[lieu]</p>;
@@ -133,7 +136,7 @@ WHERE login= ? ");
                 <input type='submit' name='envoi' class='btn btn-primary' id='envois' value ='Modifier cette expérience'/>
             </div>
         </form>";
-        echo "
+            echo "
         <form method='POST' action='ConsulterExp.php'>
             <div class='form-group row'>
                 <label for='idExperience'></label>
@@ -141,7 +144,7 @@ WHERE login= ? ");
                 <input type='submit' name='envoi' id='envois' class='btn btn-primary' value ='Consulter cette expérience'/>
             </div>
                 </form>";
-        echo "  
+            echo "  
         <form method='POST' action='SupprimerExp.php'>
             <div class='form-group row'>
                 <label for='idexp'></label>
@@ -149,9 +152,21 @@ WHERE login= ? ");
                 <input type='submit' name='envoi' id='envoi' class='btn btn-primary' value ='Supprimer cet expérience'/>
                 </form>
             </div>";
-        echo "</fieldset>";
+            echo "</fieldset>";
+        } else {
+            echo "<p>$Tuple[libelle]</p>";
+            echo "<p>$Tuple[lieu]</p>
+            <form method='POST' action='ConsulterExp.php'>
+            <div class='form-group row'>
+                <label for='idExperience'></label>
+                <input type ='hidden' class='form-control' name ='idExperience' value ='" . $Tuple['idExperience'] . "'/> <br/><br/>
+                <input type='submit' name='envoi' id='envois' class='btn btn-primary' value ='Consulter cette expérience'/>
+            </div>
+                </form>";
+        }
     }
 }
+
 /*
 function afficherExperiencePerso2($id, $idExperience){
     $requete = getDb()->prepare("SELECT * FROM experience
@@ -233,7 +248,7 @@ function afficherExperienceRechercheesBIS($type, $organisation, $lieu)
         echo "<p>$Tuple[lieu]</p>";
         echo "<form method='POST' action='ConsulterExp.php'>
             <input type='hidden' name='idExperience' value='$Tuple[idExperience]'>
-            <input type='submit' name='Consulter' id='$Tuple[idExperience]' value ='Consulter cette experience'/>
+            <input type='submit' name='Consulter' class='btn btn-primary' id='$Tuple[idExperience]' value ='Consulter cette experience'/>
             </form>";
     }
 }
@@ -367,7 +382,7 @@ function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $
         $requete->bindValue('login', $id, PDO::PARAM_STR);
         $requete->execute();
     }
-    if ($salaire != 0) {
+    if (!is_null($salaire)) {
         $requete = getdb()->prepare("UPDATE experience SET salaire = :salaire
         WHERE login= :login AND idExperience=:idExperience ");
         $requete->bindValue('salaire', $salaire, PDO::PARAM_STR);
@@ -435,7 +450,7 @@ function afficherEleves($promotion)
         echo "
         <div class='container'>
         <br/>
-        <form action='infosPerso.php' method='POST'>
+        <form action='InfosPerso.php' method='POST'>
         <input type='hidden' value='" . $tuple['login'] . "' name='login'/>
         <input type='submit' name='btn' value='" . $tuple['nom'] . " " . $tuple['prenom'] . "' class='btn btn-primary'/>
         </form>

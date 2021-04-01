@@ -5,13 +5,12 @@
 <body>
 
     <?php
-    require_once "includes/functions.php";
     session_start();
+    require_once "includes/functions.php";
     if (empty($_POST['user'])) {
         redirect('Connexion.php');
     }
     $_SESSION['user'] = $_POST['user'];
-
 
     if (isset($_SESSION['message'])) {
         print "Utilisateur ou mdp non reconnu, veuillez réessayez";

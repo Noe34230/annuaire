@@ -12,7 +12,7 @@
     <div class="container">
         <a href='AfficherPromo.php' class='btn btn-primary'>Recherche par promotion</a><br />
         <fieldset class="form-group border p-3">
-            <form method="POST" action="rechercherExp.php">
+            <form method="POST" action="RechercherExp.php">
                 <div class="form-group row">
                     <label class="col-form-label" for="type">Type </label>
                     <div class="col">

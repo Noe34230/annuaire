@@ -6,7 +6,7 @@
             if ($_SESSION['user'] == "eleve") {
                 echo "<a class='nav-link' href='AccueilEleve.php'>Accueil</a>";
                 echo "<li class='nav-item'>
-                    <a class='nav-link' href='infosPerso.php'>Mes informations personnelles</a>
+                    <a class='nav-link' href='InfosPerso.php'>Mes informations personnelles</a>
                     </li>";
             } else {
                 echo "<a class='nav-link' href='AccueilGest.php'>Accueil</a>";

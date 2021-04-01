@@ -32,7 +32,7 @@ if (
 
             redirect('AccueilGest.php');
         } else {
-            header('Location: connexion.php');
+            header('Location: Connexion.php');
         }
     } else {
 

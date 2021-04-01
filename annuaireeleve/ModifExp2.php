@@ -26,3 +26,5 @@ modifExp($_SESSION['login'], $libelle, $description, $organisation, $salaire, $l
 
 redirect('AccueilEleve.php');
 ?>
+
+</html>
