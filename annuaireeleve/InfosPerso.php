@@ -10,9 +10,19 @@
   require_once "includes/functions.php";
   ?>
   <div class="container">
-    <?php afficherInfosPerso($_SESSION['login']) ?>
-    <form method="POST" action="ModifInfosPerso.php">
-      <input type="submit" class="btn btn-primary" name="envoi" id="envoi" value="Modifier mes Informations Personelles" />
+    <?php
+    if (!isset($_POST['login'])) {
+      afficherInfosPerso($_SESSION['login']);
+      echo "<form method='POST' action='ModifInfosPerso.php'>
+      <input type='submit' class='btn btn-primary' name='envoi' id='envoi' value='Modifier mes Informations Personelles' />
+      </form>";
+    } else {
+      afficherInfosPerso($_POST['login']);
+      afficherExperience($_POST['login']);
+    }
+    ?>
+
+
   </div>
   </form>
 </body>

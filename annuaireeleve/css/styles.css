@@ -1,3 +1,7 @@
+body{
+    background-color: rgb(230, 230, 230);
+}
+
 h1{
     font-family:Arial, Helvetica, sans-serif;
     color:cornsilk;
@@ -5,9 +9,6 @@ h1{
     background-color: rgb(219, 162, 55);
 }
 
-body{
-    background-color: rgb(243, 234, 157);
-}
 .btn{
     background-color: black;
 }

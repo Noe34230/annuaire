@@ -253,6 +253,7 @@ WHERE login= ? ");
         echo "Téléphone : " . "$Tuple[telephone]" . "</br>";
         echo "Mail : " . "$Tuple[mail]" . "</br>";
         echo "Promotion : " . "$Tuple[promotion]" . "</br>";
+        echo "Date de naissance : " . "$Tuple[dateNaissance]" . "</br>";
     }
 }
 
@@ -260,7 +261,7 @@ function modifsinfosPersoBis($id, $nom, $prenom, $genre, $numRue, $nomRue, $code
 {
 }
 
-function modifInfosPerso($id, $nom, $prenom, $genre, $numRue, $nomRue, $codePostal, $ville, $mail, $telephone, $promotion)
+function modifInfosPerso($id, $nom, $prenom, $genre, $numRue, $nomRue, $codePostal, $ville, $mail, $telephone, $promotion, $date)
 {
     if ($mail != "") {
         $requete = getDb()->prepare("UPDATE eleve SET mail = :mail
@@ -332,8 +333,15 @@ function modifInfosPerso($id, $nom, $prenom, $genre, $numRue, $nomRue, $codePost
         $requete->bindValue('login', $id, PDO::PARAM_STR);
         $requete->execute();
     }
+    if (!is_null($date)) {
+        $requete = getDb()->prepare("UPDATE eleve SET dateNaissance = :date
+        WHERE login= :login ");
+        $requete->bindValue('date', $date, PDO::PARAM_STR);
+        $requete->bindValue('login', $id, PDO::PARAM_STR);
+        $requete->execute();
+    }
 }
-function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $type, $dateFin, $idExperience)
+function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $type, $dateFin, $idExperience, $dateDeb)
 {
     if (!is_null($type)) {
         $requete = getDb()->prepare("UPDATE experience SET type = :type
@@ -341,7 +349,6 @@ function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $
         $requete->bindValue('type', $type, PDO::PARAM_STR);
         $requete->bindValue('login', $id, PDO::PARAM_STR);
         $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
-        //echo "COUCOU";
         $requete->execute();
     }
     if (!is_null($libelle)) {
@@ -350,15 +357,13 @@ function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $
         $requete->bindValue('libelle', $libelle, PDO::PARAM_STR);
         $requete->bindValue('login', $id, PDO::PARAM_STR);
         $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
-        echo "COUCOU";
         $requete->execute();
     }
-    if (!is_null($description)) {
+    if ($description != "") {
         $requete = getdb()->prepare("UPDATE experience SET description = :description
-        WHERE login= :login AND idExperience=:idExperience ");
+        WHERE login= :login AND idExperience= :idExperience ");
         $requete->bindValue('description', $description, PDO::PARAM_STR);
         $requete->bindValue('login', $id, PDO::PARAM_STR);
-
         $requete->execute();
     }
     if ($salaire != 0) {
@@ -385,12 +390,55 @@ function modifExp($id, $libelle, $description, $organisation, $salaire, $lieu, $
         $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
         $requete->execute();
     }
-    if ($dateFin != "") {
+    if (!is_null($dateFin)) {
         $requete = getdb()->prepare("UPDATE experience SET dateFin = :dateFin
         WHERE login= :login AND idExperience=:idExperience ");
         $requete->bindValue('dateFin', $dateFin, PDO::PARAM_STR);
         $requete->bindValue('login', $id, PDO::PARAM_STR);
         $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
         $requete->execute();
+    }
+    if (!is_null($dateDeb)) {
+        $requete = getdb()->prepare("UPDATE experience SET dateDeb = :dateDeb
+        WHERE login= :login AND idExperience=:idExperience ");
+        $requete->bindValue('dateDeb', $dateDeb, PDO::PARAM_STR);
+        $requete->bindValue('login', $id, PDO::PARAM_STR);
+        $requete->bindValue('idExperience', $idExperience, PDO::PARAM_INT);
+        $requete->execute();
+    }
+}
+
+function afficherPromo()
+{
+    $requete = getDb()->query("SELECT DISTINCT(promotion) FROM eleve ORDER BY promotion");
+    while ($tuple = $requete->fetch()) {
+        echo "
+        <div class='container'>
+        <br/>
+        <form action='AccederPromo.php' method='POST'>
+        <input type='hidden' value='" . $tuple['promotion'] . "' name='promotion'/>
+        <input type='submit' name='btn' value='" . $tuple['promotion'] . "' class='btn btn-primary'/> <br />
+        </form> 
+        </div>
+        ";
+    }
+}
+
+function afficherEleves($promotion)
+{
+    $requete = getDb()->prepare("SELECT DISTINCT(nom), promotion, prenom, login FROM eleve WHERE promotion= :promotion");
+    $requete->bindvalue('promotion', $promotion, PDO::PARAM_INT);
+    $requete->execute();
+
+    while ($tuple = $requete->fetch()) {
+        echo "
+        <div class='container'>
+        <br/>
+        <form action='infosPerso.php' method='POST'>
+        <input type='hidden' value='" . $tuple['login'] . "' name='login'/>
+        <input type='submit' name='btn' value='" . $tuple['nom'] . " " . $tuple['prenom'] . "' class='btn btn-primary'/>
+        </form>
+        </div>
+        ";
     }
 }

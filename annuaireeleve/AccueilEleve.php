@@ -8,7 +8,7 @@ require_once "includes/head.php";
 <body>
 
   <?php
-  require("includes/functions.php");
+  require_once "includes/functions.php";
   session_start();
   $stmt = getDb()->prepare('select valide from eleve where login=?');
   $stmt->execute(array($_SESSION['login']));
@@ -17,7 +17,6 @@ require_once "includes/head.php";
     require_once "includes/header.php"; ?>
     <div class="container">
     <?php
-    require("includes/functions.php");
     echo "<h1>";
     afficherNomsPrenoms($_SESSION['login']);
     echo "</h1>";

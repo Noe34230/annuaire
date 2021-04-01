@@ -10,6 +10,7 @@
     ?>
     <br />
     <div class="container">
+        <a href='AfficherPromo.php' class='btn btn-primary'>Recherche par promotion</a><br />
         <fieldset class="form-group border p-3">
             <form method="POST" action="rechercherExp.php">
                 <div class="form-group row">

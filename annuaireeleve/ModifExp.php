@@ -35,6 +35,12 @@ $_SESSION['idExperience'] = $_POST['idExperience'];
         </div>
       </div>
       <div class="form-group row">
+        <label for="dateDeb" class="col-form-label"> Date à laquelle l'expérience a débutée :</label>
+        <div class="col">
+          <input type="date" class="form-control" name="dateDeb" />
+        </div>
+      </div>
+      <div class="form-group row">
         <label for="dateFin" class="col-form-label"> Date à laquelle l'expérience s'est terminée :</label>
         <div class="col">
           <input type="date" class="form-control" name="dateFin" />
