@@ -17,12 +17,17 @@ if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
         // Authentication successful eleve
         $_SESSION['login'] = $login;
         redirect('AccueilEleve.php');
+        $_SESSION['message'];
     } else if ($stmt->rowCount() == 1 && $_SESSION['user'] == "admin") {
         // Authentication successful gestionnaire
         $_SESSION['login'] = $login;
         redirect('AccueilGest.php');
+        $_SESSION['message'];
     } else {
         $_SESSION['message'] = 1;
         redirect('Connexion.php');
     }
+} else {
+    redirect('Connexion1.php');
+    $_SESSION['message'];
 }

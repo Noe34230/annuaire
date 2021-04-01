@@ -14,5 +14,8 @@ $requete->execute();
 
 
 
-
-redirect('GererExp.php');
+if ($_SESSION['admin']) {
+    redirect('GererExp.php');
+} else {
+    header('Location: AccueilEleve.php');
+}
