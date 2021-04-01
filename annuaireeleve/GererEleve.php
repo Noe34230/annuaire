@@ -31,12 +31,15 @@
                         <div class='col'>
                             <input type='hidden' name='login' class='form-control' value='$Tuple[login]' />
                         </div>
-                    </div>
+                        <label for='validation'> </label>
+                        <input type='hidden' name='validation' value='non' />
+
+                        </div>
         
                     <input type='submit' name='envoi' class='btn btn-primary' id='envoi' value='Supprimer ce profil' />
                     </fieldset>
                 </form>
-        </div>";
+            </div>";
     }
     ?>
 </body>

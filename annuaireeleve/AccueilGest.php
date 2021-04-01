@@ -5,7 +5,6 @@
 
 <body>
 
-
     <?php
     require("includes/functions.php");
     session_start();
@@ -18,10 +17,12 @@
     $requete = getDb()->prepare("SELECT * FROM eleve
   WHERE valide = 0 ");
     $requete->execute();
-    echo "<a href='GererEleve.php'>Voir tous les élèves</a><br/>";
-    echo "<a href='GererExp.php'>Voir toutes les expériences</a><br/>";
+
+    echo "<a href='GererEleve.php'  class ='btn btn-primary'>Voir tous les élèves</a>";
+    echo "<a href='GererExp.php' class ='btn btn-primary'>Voir toutes les expériences</a><br/><br/>";
 
     echo "Profils en attente de validation :" . "</br>";
+    echo "<fieldset class='form-group border p-3'>";
     while ($Tuple = $requete->fetch()) {
         echo "Prénom : " . "$Tuple[prenom]" . "</br>";
         echo "Nom : " . "$Tuple[nom]" . "</br>";
@@ -34,31 +35,39 @@
         echo "Mail : " . "$Tuple[mail]" . "</br>";
         echo "Promotion : " . "$Tuple[promotion]" . "</br>" . "</br>";
         echo "  <div class='d-flex justify-content-center align-items-center container '>
-    <fieldset class='form-group border p-3'>
+    
         <form method='POST' action='ConfirmerEleve.php'>
             <div class='form-group row'>
 
-                <label for='validation'> Accepter ce profil </label>
+                <label for='validation'></label>
                 <div class='col'>
-                    <input type='radio' name='validation' value='oui' />
-                </div>
-            </div>
-            <div class='form-group row'>
-                <label for='validation'> Supprimer ce profil </label>
-                <div class='col'>
-                    <input type='radio' name='validation' value='non' />
+                    <input type='hidden' name='validation' value='oui' />
                 </div>
             </div>
 
             <label for='login'></label>
             <input type='hidden' name='login' value='$Tuple[login]' />
-            <input type='submit' name='envoi' id='envoi' value='Envoyer' />
+            <input type='submit' class ='btn btn-primary' name='envoi' id='envoi' value='Accepter ce profil' />
         </form>
+        <form method='POST' action='ConfirmerEleve.php'>
+        <div class='form-group row'>
+
+            <label for='validation'></label>
+            <div class='col'>
+                <input type='hidden' name='validation' value='non' />
+            </div>
+        </div>
+
+        <label for='login'></label>
+        <input type='hidden' name='login' value='$Tuple[login]' />
+        <input type='submit' class ='btn btn-primary' name='envoi' id='envoi' value='Supprimer ce profil' />
+    </form>
     </fieldset>
 </div>";
     }
 
     echo "<a href='ajoutExp.php' class='btn btn-primary' >Ajouter une experience</a>";
+    echo "<a href='inscription.php' class ='btn btn-primary' >Ajouter un élève</a>";
     ?>
 
     <?php require_once "includes/scripts.php"; ?>

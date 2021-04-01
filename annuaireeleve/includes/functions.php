@@ -215,8 +215,9 @@ function afficherExperienceRecherchees($type, $organisation, $lieu, $secteurAct,
 
 function afficherExperienceRechercheesBIS($type, $organisation, $lieu)
 {
+
     $requete = getDb()->prepare("SELECT * FROM experience WHERE
-    type= :type AND (organisation= :organisation or lieu= :lieu) "); //l'utilisateur doit obligatoirement remplir le type mais pas le reste 
+    type= :type OR (organisation= :organisation or lieu= :lieu) "); //l'utilisateur doit obligatoirement remplir le type mais pas le reste 
 
     $requete->bindValue('type', $type, PDO::PARAM_STR);
     $requete->bindValue('organisation', $organisation, PDO::PARAM_STR);
